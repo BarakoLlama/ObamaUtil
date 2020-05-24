@@ -1,7 +1,5 @@
-class ObamaUtil {
+exports.ObamaUtil = class ObamaUtil {
     constructor(){
-
+        
     }
 }
-
-module.exports = ObamaUtil
