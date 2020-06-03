@@ -1,3 +1,5 @@
+// GitHub/BarakoLlama \\
+
 const colors = require('colors')
 
 exports.ObamaUtil = class ObamaUtil {
