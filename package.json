@@ -1,5 +1,10 @@
 {
-    "publishConfig": {"registry": "https://npm.pkg.github.com/"},
-    "name" : "@barakollama/obamautil",
-    "version" : "0.0.0"
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
+    "name": "@barakollama/obamautil",
+    "version": "0.0.0",
+    "dependencies": {
+        "colors": "^1.4.0"
+    }
 }
