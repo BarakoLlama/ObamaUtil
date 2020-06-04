@@ -531,6 +531,10 @@ exports.BetterArray = class BetterArray {
                 oneDimensional.removeItem(item)
                 return oneDimensional.toLoggerArray()
             }
+            logAndWrite(item = String()){
+                console.log(item)
+                this.addItem(item)
+            }
             save(path = String(), callback){
                 fs.writeFile(path, this.stringify(), (err) => {
                     let error = undefined
