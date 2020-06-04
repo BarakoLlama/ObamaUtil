@@ -206,6 +206,16 @@ exports.ObamaUtil = class ObamaUtil {
             return fixedArray
         }else{throw new Error("Array includes something that is not a number.")}
     }
+    replaceAllElements(string = String(), find = String(), replace = String()){
+        if(replace.includes(string)){
+            throw new Error("The text that replaces the text to find includes the text to find which would cause an infinite loop.")
+        }
+        var replacedString = string
+        while(replacedString.includes(find)){
+            replacedString.replace(find, replace)
+        }
+        return replacedString
+    }
 }
 exports.BetterArray = class BetterArray {
     constructor(){
