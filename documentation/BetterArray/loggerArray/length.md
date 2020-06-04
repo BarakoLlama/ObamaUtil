@@ -1,12 +1,11 @@
-# name
+# length
 ## Parameters
 ### There are no parameters.
-interface(): desc
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
 const ba = new ObamaUtil.BetterArray()
 const myArray = new ba.loggerArray([])
-myArray.
-// function
+myArray.length()
+// Returns how many elements are in the logger array
 ```

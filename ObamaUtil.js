@@ -363,7 +363,7 @@ exports.BetterArray = class BetterArray {
                     }
                     processingPart++
                 }
-                return this.getItemByID(foundID)
+                return this.array2[foundID]
             }
             getItemByData(data){
                 let processingPart = 0
@@ -374,7 +374,7 @@ exports.BetterArray = class BetterArray {
                     }
                     processingPart++
                 }
-                return this.getItemByID(foundID)
+                return this.array1[foundID]
 
             }
             getItemByID(id = Number()){

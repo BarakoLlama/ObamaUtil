@@ -30,12 +30,3 @@ BetterArray.typeJson.includesName
 BetterArray.typeJson.includesData
 BetterArray.typeJson.length
 BetterArray.typeJson.copy
-BetterArray.loggerArray.toOneDimensional
-BetterArray.loggerArray.stringify
-BetterArray.loggerArray.clear
-BetterArray.loggerArray.addItem
-BetterArray.loggerArray.removeItem
-BetterArray.loggerArray.save
-BetterArray.loggerArray.includes
-BetterArray.loggerArray.length
-BetterArray.loggerArray.copy
