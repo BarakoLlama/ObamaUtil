@@ -1,11 +1,11 @@
 # name
 ## Parameters
-### param
-interface(): description
+### path
+String(): The file to read
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const obama = new ObamaUtil.ObamaUtil()
-obama.
-// Returns ...
+const ba = new ObamaUtil.BetterArray()
+ba.readJson("./myfile")
+// Returns new ObamaUtil.BetterArray.typeJson
 ```
