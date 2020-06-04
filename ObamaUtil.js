@@ -378,7 +378,7 @@ exports.BetterArray = class BetterArray {
 
             }
             getItemByID(id = Number()){
-                return this.array2[id]
+                return [this.array1[id], this.array2[id]]
             }
             save(path = String(), callback){
                 fs.writeFile(path, this.stringify(), (err) => {

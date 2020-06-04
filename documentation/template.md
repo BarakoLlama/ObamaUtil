@@ -6,7 +6,7 @@ interface(): desc
 ```javascript
 const ObamaUtil = require('ObamaUtil')
 const ba = new ObamaUtil.BetterArray()
-const myArray = new ba.loggerArray([])
+const myArray = new ba.twoDimensional([], [])
 myArray.
 // function
 ```
