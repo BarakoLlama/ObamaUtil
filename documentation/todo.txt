@@ -1,19 +1,5 @@
 If something is here, sadly, not all documentation is finished.
 
-ObamaUtil.ensureParameters
-ObamaUtil.getDateTime
-ObamaUtil.easyWrite
-ObamaUtil.highestNumberOfArray
-ObamaUtil.getIDFromHighestNumberOfArray
-ObamaUtil.numberOfArrayClosestToZero
-ObamaUtil.IDOfNumberOfArrayClosestToZero
-ObamaUtil.getAverageOfArray
-ObamaUtil.findMaxOfArray
-ObamaUtil.findMinOfArray
-ObamaUtil.ensureArrayIsOfType
-ObamaUtil.findIDofArrayItem
-ObamaUtil.sortLowToHigh
-ObamaUtil.sortHighToLow
 BetterArray.oneDimensional.stringify
 BetterArray.oneDimensional.clear
 BetterArray.oneDimensional.addItem
