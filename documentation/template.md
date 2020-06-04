@@ -5,8 +5,7 @@ interface(): desc
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
-const myArray = new ba.typeJson({})
+const obama = new ObamaUtil.ObamaUtil()
 myArray.
 // function
 ```

@@ -1,6 +1,7 @@
 // GitHub/BarakoLlama \\
 
 const colors = require('colors')
+const fs = require('fs')
 
 exports.ObamaUtil = class ObamaUtil {
     constructor(){
@@ -215,6 +216,44 @@ exports.ObamaUtil = class ObamaUtil {
             replacedString.replace(find, replace)
         }
         return replacedString
+    }
+    massFileCreate(path = String(), files = Array(), optionalData = String(), optionalFileExtension = String(), optionalEnableLogging = Boolean()){
+        if(this.ensureParameters([path, files])){
+            if(this.ensureArrayIsOfType(files, "string")){
+                var processingPart = 0
+                var dataToWrite
+                if((optionalData == "") || (optionalData == undefined)){dataToWrite = ""}else{dataToWrite = optionalData}
+                if(optionalFileExtension == ""){ // Split into two parts for better preformance
+                    while(processingPart < files.length){
+                        var fileWrite = path+files[processingPart]
+                        fs.writeFile(fileWrite, dataToWrite, (err) => {
+                            if(err){
+                                this.easyWrite("ObamaUtil ERR!", err, false, "brightRed")
+                            }else if(optionalEnableLogging == true){
+                                this.easyWrite("ObamaUtil INFO", ("Finished writing a file"), false, "brightCyan")
+                            }
+                        })
+                        processingPart++
+                    }
+                }else{
+                    while(processingPart < files.length){
+                        var fileWrite = path+files[processingPart]+optionalFileExtension
+                        fs.writeFile(fileWrite, dataToWrite, (err) => {
+                            if(err){
+                                this.easyWrite("ObamaUtil ERR!", err, false, "brightRed")
+                            }else if(optionalEnableLogging == true){
+                                this.easyWrite("ObamaUtil INFO", ("Finished writing a file"), false, "brightCyan")
+                            }
+                        })
+                        processingPart++
+                    }
+                }
+            }else{
+                throw new Error("Array must contain only strings.")
+            }
+        }else{
+            throw new Error("Both path and files must be defined.")
+        }
     }
 }
 exports.BetterArray = class BetterArray {
