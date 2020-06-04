@@ -54,9 +54,3 @@ BetterArray.readOneDimensional
 BetterArray.readTwoDimensional
 BetterArray.readJson
 BetterArray.readLoggerArray
-BetterArray.ensureArrayIsOfType
-BetterArray.highestNumberOfArray
-BetterArray.getIDFromHighestNumberOfArray
-BetterArray.numberOfArrayClosestToZero
-BetterArray.IDOfNumberOfArrayClosestToZero
-BetterArray.getAverageOfArray
