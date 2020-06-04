@@ -7,3 +7,4 @@ const obama = new ObamaUtil()
 ```
 Now, you can use all the functions that ObamaUtil offers!
 ## Functions
+To see functions, go [Here](https://github.com/BarakoLlama/ObamaUtil/tree/master/documentation).
