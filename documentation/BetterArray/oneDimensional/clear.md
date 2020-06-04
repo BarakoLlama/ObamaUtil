@@ -1,12 +1,11 @@
 # name
 ## Parameters
 ### There are no parameters.
-interface(): desc
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
 const ba = new ObamaUtil.BetterArray()
-const myArray = new ba.oneDimensional([])
-myArray.
-// function
+const myArray = new ba.oneDimensional([1, 6, 2, 98, 24, "hello"])
+myArray.clear()
+// Clears all elements in myArray
 ```

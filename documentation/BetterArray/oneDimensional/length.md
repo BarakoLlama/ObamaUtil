@@ -1,12 +1,11 @@
-# name
+# length
 ## Parameters
 ### There are no parameters.
-interface(): desc
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
 const ba = new ObamaUtil.BetterArray()
 const myArray = new ba.oneDimensional([])
-myArray.
-// function
+myArray.length()
+// Returns the amount of items that are in the one dimensional.
 ```

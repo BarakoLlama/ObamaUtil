@@ -1,16 +1,5 @@
 If something is here, sadly, not all documentation is finished.
 
-BetterArray.oneDimensional.stringify
-BetterArray.oneDimensional.clear
-BetterArray.oneDimensional.addItem
-BetterArray.oneDimensional.removeItem
-BetterArray.oneDimensional.findMax
-BetterArray.oneDimensional.findMin
-BetterArray.oneDimensional.toLoggerArray
-BetterArray.oneDimensional.save
-BetterArray.oneDimensional.includes
-BetterArray.oneDimensional.length
-BetterArray.oneDimensional.copy
 BetterArray.twoDimensional.stringify
 BetterArray.twoDimensional.toJSON
 BetterArray.twoDimensional.toTypeJSON
@@ -50,7 +39,3 @@ BetterArray.loggerArray.save
 BetterArray.loggerArray.includes
 BetterArray.loggerArray.length
 BetterArray.loggerArray.copy
-BetterArray.readOneDimensional
-BetterArray.readTwoDimensional
-BetterArray.readJson
-BetterArray.readLoggerArray

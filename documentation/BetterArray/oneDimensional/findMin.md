@@ -1,0 +1,11 @@
+# findMin
+## Parameters
+### There are no parameters.
+## Example
+```javascript
+const ObamaUtil = require('ObamaUtil')
+const ba = new ObamaUtil.BetterArray()
+const myArray = new ba.oneDimensional([1, 7, 3, 8, 29, 12, 4])
+myArray.findMin()
+// Finds the smallest number, which in this example, is 1.
+```

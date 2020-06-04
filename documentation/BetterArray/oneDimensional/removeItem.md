@@ -1,12 +1,14 @@
-# name
+# removeItem
 ## Parameters
-### There are no parameters.
-interface(): desc
+### name
+any: The item to remove
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
 const ba = new ObamaUtil.BetterArray()
 const myArray = new ba.oneDimensional([])
-myArray.
-// function
+myArray.addItem("apple")
+myArray.addItem("strawberry")
+myArray.removeItem("apple")
+// Removes "apple" from myArray
 ```

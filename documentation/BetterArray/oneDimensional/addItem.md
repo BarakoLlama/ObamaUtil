@@ -1,12 +1,12 @@
 # name
 ## Parameters
-### There are no parameters.
-interface(): desc
+### name
+any: The item to add
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
 const ba = new ObamaUtil.BetterArray()
 const myArray = new ba.oneDimensional([])
-myArray.
-// function
+myArray.addItem("hello")
+// Adds the item "hello" to the one dimensional array.
 ```
