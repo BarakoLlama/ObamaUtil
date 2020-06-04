@@ -2,10 +2,240 @@
 
 const colors = require('colors')
 const fs = require('fs')
+const http = require('http')
+const https = require('https')
 
 exports.ObamaUtil = class ObamaUtil {
     constructor(){
-        
+        this.async = class async {
+            constructor(){}
+            async getDateTime(now = Date()){
+                return new Promise(resolve => {
+                    var date = now
+                    var hour = date.getHours()
+                    hour = (hour < 10 ? "0" : "") + hour
+                    var min  = date.getMinutes()
+                    min = (min < 10 ? "0" : "") + min
+                    var sec  = date.getSeconds()
+                    sec = (sec < 10 ? "0" : "") + sec
+                    var month = date.getMonth() + 1
+                    month = (month < 10 ? "0" : "") + month
+                    var day  = date.getDate()
+                    day = (day < 10 ? "0" : "") + day
+                    resolve(month + "/" + day + " " + hour + ":" + min + ":" + sec)
+                })
+            }
+            async highestNumberOfArray(array = Array()){
+                return new Promise(resolve => {
+                    let highestNumber = Number.MIN_SAFE_INTEGER
+                    array.forEach(function(number){
+                        if(number > highestNumber){highestNumber = number}
+                    })
+                    resolve(highestNumber)
+                })
+            }
+            async getIDFromHighestNumberOfArray(array = Array(Number())){
+                return new Promise(resolve => {
+                    let highestNumber = Number.MIN_SAFE_INTEGER
+                    array.forEach(function(number){
+                        if(number > highestNumber){highestNumber = number}
+                    })
+                    let trueIndex
+                    array.find(function(currentValue, index){
+                        if(currentValue == highestNumber){
+                            trueIndex = index
+                            return true
+                        }else{return false}
+                    })
+                    resolve(trueIndex)
+                })
+            }
+            async numberOfArrayClosestToZero(array = Array(Number())){
+                return new Promise(resolve => {
+                    function getError(out){
+                        if(out > 0){return (out - 0)}
+                        if(0 > out){return (0 - out)}
+                        return 0
+                    }
+                    let closestNumber = Number.MIN_SAFE_INTEGER
+                    array.forEach(function(number){
+                        if(getError(number) < getError(closestNumber)){closestNumber = number}
+                    })
+                    resolve(closestNumber)
+                })
+            }
+            async IDOfNumberOfArrayClosestToZero(array = Array(Number())){
+                return new Promise(resolve => {
+                    function getError(out){
+                        if(out > 0){return (out - 0)}
+                        if(0 > out){return (0 - out)}
+                        return 0
+                    }
+                    let closestNumber = Number.MIN_SAFE_INTEGER
+                    array.forEach(function(number){
+                        if(getError(number) < getError(closestNumber)){closestNumber = number}
+                    })
+                    let trueIndex
+                    array.find(function(currentValue, index){
+                        if(currentValue == closestNumber){
+                            trueIndex = index
+                            return true
+                        }else{return false}
+                    })
+                    resolve(trueIndex)
+                })
+            }
+            async getAverageOfArray(array = Array(Number())){
+                return new Promise(resolve => {
+                    let sum = 0
+                    let divisor = array.length
+                    array.forEach(function(number){
+                        sum = sum + number
+                    })
+                    resolve(sum / divisor)
+                })
+            }
+            async findMaxOfArray(array = Array()){
+                return new Promise(resolve => {
+                    if(this.ensureArrayIsOfType(array, "number")){
+                        let max = Number.MIN_SAFE_INTEGER
+                        array.forEach(function(num){
+                            if(num > max){max = num}
+                        })
+                        resolve(max)
+                    }else{
+                        throw new Error("Array contains something that is not a number.")
+                    }
+                })
+            }
+            async findMinOfArray(array = Array()){
+                return new Promise(resolve => {
+                    if(this.ensureArrayIsOfType(array, "number")){
+                        let max = Number.MAX_SAFE_INTEGER
+                        array.forEach(function(num){
+                            if(num < max){max = num}
+                        })
+                        resolve(max)
+                    }else{
+                        throw new Error("Array contains something that is not a number.")
+                    }
+                })
+            }
+            async findIDofArrayItem(array = Array(), equals){ //
+                return new Promise(resolve => {
+                    let trueIndex
+                    array.find(function(currentValue, index){
+                        if(currentValue == equals){
+                            trueIndex = index
+                            return true
+                        }else{return false}
+                    })
+                    resolve(trueIndex)
+                })
+            }
+            async sortLowToHigh(array = Array()){
+                return new Promise(resolve => {
+                    if(this.ensureArrayIsOfType(array, "number")){
+                        var searchArray = array
+                        var fixedArray = []
+                        while(true){
+                            let min = this.findMinOfArray(searchArray)
+                            let ID = this.findIDofArrayItem(searchArray, min)
+                            fixedArray.push(min)
+                            let fixedSearch = []
+                            let processingPart = 0
+                            while(processingPart < searchArray.length){
+                                if(!(ID == processingPart)){
+                                    fixedSearch.push(searchArray[processingPart])
+                                }
+                                processingPart++
+                            }
+                            searchArray = fixedSearch
+                            if(searchArray.length == 0){
+                                break
+                            }
+                        }
+                        resolve(fixedArray)
+                    }else{throw new Error("Array includes something that is not a number.")}
+                })
+            }
+            async sortHighToLow(array = Array()){
+                return new Promise(resolve => {
+                    if(this.ensureArrayIsOfType(array, "number")){
+                        var searchArray = array
+                        var fixedArray = []
+                        while(true){
+                            let min = this.findMaxOfArray(searchArray)
+                            let ID = this.findIDofArrayItem(searchArray, min)
+                            fixedArray.push(min)
+                            let fixedSearch = []
+                            let processingPart = 0
+                            while(processingPart < searchArray.length){
+                                if(!(ID == processingPart)){
+                                    fixedSearch.push(searchArray[processingPart])
+                                }
+                                processingPart++
+                            }
+                            searchArray = fixedSearch
+                            if(searchArray.length == 0){
+                                break
+                            }
+                        }
+                        resolve(fixedArray)
+                    }else{throw new Error("Array includes something that is not a number.")}
+                })
+            }
+            async replaceAllElements(string = String(), find = String(), replace = String()){
+                return new Promise(resolve => {
+                    if(replace.includes(string)){
+                        throw new Error("The text that replaces the text to find includes the text to find which would cause an infinite loop.")
+                    }
+                    var replacedString = string
+                    while(replacedString.includes(find)){
+                        replacedString.replace(find, replace)
+                    }
+                    resolve(replacedString)
+                })
+            }
+            async massFileCreate(path = String(), files = Array(), optionalData = String(), optionalFileExtension = String(), optionalEnableLogging = Boolean()){
+                if(this.ensureParameters([path, files])){
+                    if(this.ensureArrayIsOfType(files, "string")){
+                        var processingPart = 0
+                        var dataToWrite
+                        if((optionalData == "") || (optionalData == undefined)){dataToWrite = ""}else{dataToWrite = optionalData}
+                        if(optionalFileExtension == ""){ // Split into two parts for better preformance
+                            while(processingPart < files.length){
+                                var fileWrite = path+files[processingPart]
+                                fs.writeFile(fileWrite, dataToWrite, (err) => {
+                                    if(err){
+                                        this.easyWrite("ObamaUtil ERR!", err, false, "brightRed")
+                                    }else if(optionalEnableLogging == true){
+                                        this.easyWrite("ObamaUtil INFO", ("Finished writing a file"), false, "brightCyan")
+                                    }
+                                })
+                                processingPart++
+                            }
+                        }else{
+                            while(processingPart < files.length){
+                                var fileWrite = path+files[processingPart]+optionalFileExtension
+                                fs.writeFile(fileWrite, dataToWrite, (err) => {
+                                    if(err){
+                                        this.easyWrite("ObamaUtil ERR!", err, false, "brightRed")
+                                    }else if(optionalEnableLogging == true){
+                                        this.easyWrite("ObamaUtil INFO", ("Finished writing a file"), false, "brightCyan")
+                                    }
+                                })
+                                processingPart++
+                            }
+                        }
+                    }else{
+                        throw new Error("Array must contain only strings.")
+                    }
+                }else{
+                    throw new Error("Both path and files must be defined.")
+                }
+            }
+        }
     }
     ensureParameters(parameters = Array()){
         var foundUndefined = false
@@ -60,7 +290,7 @@ exports.ObamaUtil = class ObamaUtil {
             throw new Error("type AND message needs to be defined.")
         }
     }
-    highestNumberOfArray(array = Array(Number())){
+    highestNumberOfArray(array = Array()){
         let highestNumber = Number.MIN_SAFE_INTEGER
         array.forEach(function(number){
             if(number > highestNumber){highestNumber = number}
