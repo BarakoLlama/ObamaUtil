@@ -119,6 +119,93 @@ exports.ObamaUtil = class ObamaUtil {
         })
         return (sum / divisor)
     }
+    findMaxOfArray(array = Array()){
+        if(this.ensureArrayIsOfType(array, "number")){
+            let max = Number.MIN_SAFE_INTEGER
+            array.forEach(function(num){
+                if(num > max){max = num}
+            })
+            return max
+        }else{
+            throw new Error("Array contains something that is not a number.")
+        }
+    }
+    findMinOfArray(array = Array()){
+        if(this.ensureArrayIsOfType(array, "number")){
+            let max = Number.MAX_SAFE_INTEGER
+            array.forEach(function(num){
+                if(num < max){max = num}
+            })
+            return max
+        }else{
+            throw new Error("Array contains something that is not a number.")
+        }
+    }
+    obamaUtilError(err = String()){
+        throw new Error("ObamaUtil Internal Error: "+err)
+    }
+    ensureArrayIsOfType(array = Array(), type = String()){
+        array.forEach(function(item){if(!(typeof item == type)){return false}})
+        return true
+    }
+    findIDofArrayItem(array = Array(), equals){
+        let trueIndex
+        array.find(function(currentValue, index){
+            if(currentValue == equals){
+                trueIndex = index
+                return true
+            }else{return false}
+        })
+        return trueIndex
+    }
+    sortLowToHigh(array = Array()){
+        if(this.ensureArrayIsOfType(array, "number")){
+            var searchArray = array
+            var fixedArray = []
+            while(true){
+                let min = this.findMinOfArray(searchArray)
+                let ID = this.findIDofArrayItem(searchArray, min)
+                fixedArray.push(min)
+                let fixedSearch = []
+                let processingPart = 0
+                while(processingPart < searchArray.length){
+                    if(!(ID == processingPart)){
+                        fixedSearch.push(searchArray[processingPart])
+                    }
+                    processingPart++
+                }
+                searchArray = fixedSearch
+                if(searchArray.length == 0){
+                    break
+                }
+            }
+            return fixedArray
+        }else{throw new Error("Array includes something that is not a number.")}
+    }
+    sortHighToLow(array = Array()){
+        if(this.ensureArrayIsOfType(array, "number")){
+            var searchArray = array
+            var fixedArray = []
+            while(true){
+                let min = this.findMaxOfArray(searchArray)
+                let ID = this.findIDofArrayItem(searchArray, min)
+                fixedArray.push(min)
+                let fixedSearch = []
+                let processingPart = 0
+                while(processingPart < searchArray.length){
+                    if(!(ID == processingPart)){
+                        fixedSearch.push(searchArray[processingPart])
+                    }
+                    processingPart++
+                }
+                searchArray = fixedSearch
+                if(searchArray.length == 0){
+                    break
+                }
+            }
+            return fixedArray
+        }else{throw new Error("Array includes something that is not a number.")}
+    }
 }
 exports.BetterArray = class BetterArray {
     constructor(){
@@ -148,6 +235,28 @@ exports.BetterArray = class BetterArray {
                     }
                 })
                 return newArray
+            }
+            findMax(){
+                if(this.instance.ensureArrayIsOfType(this.array, "number")){
+                    let max = Number.MIN_SAFE_INTEGER
+                    this.array.forEach(function(num){
+                        if(num > max){max = num}
+                    })
+                    return max
+                }else{
+                    throw new Error("Array contains something that is not a number.")
+                }
+            }
+            findMin(){
+                if(this.instance.ensureArrayIsOfType(this.array, "number")){
+                    let max = Number.MAX_SAFE_INTEGER
+                    this.array.forEach(function(num){
+                        if(num < max){max = num}
+                    })
+                    return max
+                }else{
+                    throw new Error("Array contains something that is not a number.")
+                }
             }
             toLoggerArray(){return new this.instance.loggerArray(this.array)}
             save(path = String(), callback){
@@ -411,6 +520,10 @@ exports.BetterArray = class BetterArray {
         this.readLoggerArray = (path = String()) => {
             return new this.loggerArray(fs.readFileSync(path).toString().split("\n"))
         }
+    }
+    ensureArrayIsOfType(array = Array(), type = String()){
+        array.forEach(function(item){if(!(typeof item == type)){return false}})
+        return true
     }
     highestNumberOfArray(array = Array(Number())){
         let highestNumber = Number.MIN_SAFE_INTEGER
