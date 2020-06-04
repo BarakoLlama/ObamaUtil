@@ -1,21 +1,5 @@
 If something is here, sadly, not all documentation is finished.
 
-BetterArray.twoDimensional.stringify
-BetterArray.twoDimensional.toJSON
-BetterArray.twoDimensional.toTypeJSON
-BetterArray.twoDimensional.clear
-BetterArray.twoDimensional.addItem
-BetterArray.twoDimensional.removeItemByName
-BetterArray.twoDimensional.removeItemByData
-BetterArray.twoDimensional.removeItemByID
-BetterArray.twoDimensional.getItemByName
-BetterArray.twoDimensional.getItemByData
-BetterArray.twoDimensional.getItemByID
-BetterArray.twoDimensional.save
-BetterArray.twoDimensional.includesName
-BetterArray.twoDimensional.includesData
-BetterArray.twoDimensional.length
-BetterArray.twoDimensional.copy
 BetterArray.typeJson.stringify
 BetterArray.typeJson.toTwoDimensional
 BetterArray.typeJson.toOneDimensional
