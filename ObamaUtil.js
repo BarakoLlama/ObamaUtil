@@ -480,6 +480,12 @@ exports.ObamaUtil = {
         }else{
             throw new Error("Both path and files must be defined.")
         }
+    },
+    measureFunction(func){
+        var current = new Date().getTime()
+        func()
+        var done = new Date().getTime()
+        return (done - current)
     }
 }
 exports.BetterArray = {
@@ -878,7 +884,21 @@ exports.Internet = {
                 this.message = message
                 this.code = code
             }
-        }
+        },
+        listOfPorts: function listOfPorts(){
+            var maxPort = 65535
+            var ports = [80, 8080, 20, 21, 22, 23, 25, 53, 67, 68, 110, 119, 443, 123, 143, 161, 194, 443]
+            var common = ports
+            var processingPart = 1
+            while(processingPart <= maxPort){
+                if(!(common.includes(processingPart))){
+                    ports.push(processingPart)
+                }
+                processingPart++
+            }
+            return ports
+        },
+        instance: this
     },
     get: function get(URL = String(), func = (response, error)){
         var betURL
@@ -904,5 +924,33 @@ exports.Internet = {
         }else{
             func(undefined, new this.system.ResponseError("client", "PROTOCOL_NOT_SUPPORTED", "Only HTTP or HTTPS is supported."))
         }
+    },
+    isPortAvailable: async function isPortAvailable(host = String(), port = Number(), callback){
+        var finished = http.get({
+            host: host,
+            port: port
+        })
+        finished.on("error", (err) => {if(err.errno == "ECONNREFUSED"){callback(true)}})
+        finished.on("response", (response) => {callback(false)})
+    },
+    isPortAvailableSync: function isPortAvailable(host = String(), port = Number(), callback){
+        var finished = http.get({
+            host: host,
+            port: port
+        })
+        finished.on("error", (err) => {if(err.errno == "ECONNREFUSED"){callback(true)}})
+        finished.on("response", (response) => {callback(false)})
+    },
+    ping: async function ping(host = String(), port = Number(), callback){
+        var current = new Date().getTime()
+        var finished = http.get({
+            host: host,
+            port: port
+        })
+        finished.on("error", (err) => {callback(undefined)})
+        finished.on("response", (response) => {
+            var done = new Date().getTime()
+            callback(done - current)
+        })
     }
 }
