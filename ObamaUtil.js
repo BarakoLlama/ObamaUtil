@@ -3,7 +3,6 @@
 const colors = require('colors')
 const fs = require('fs')
 const http = require('http')
-const https = require('https')
 
 exports.ObamaUtil = {
     async: {
