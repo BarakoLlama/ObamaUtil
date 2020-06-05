@@ -7,7 +7,7 @@ any: The data to add that goes with the name
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
+const ba = ObamaUtil.BetterArray
 const myArray = new ba.twoDimensional([], [])
 myArray.addItem("amountOfPeople", 5)
 // Adds a new item to myArray with amountOfPeople=5.

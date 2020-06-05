@@ -17,18 +17,18 @@ Boolean(): (OPTIONAL) Enables logging of when a file is finished if set to true
 ### Making files with the same extension
 ```javascript
 const ObamaUtil = require('./ObamaUtil')
-const obama = new ObamaUtil.ObamaUtil()
+const obama = ObamaUtil.ObamaUtil
 obama.massFileCreate("./mydirectory/", ["file1", "file2", "file3", "file4", "file5"], undefined, ".txt")
 ```
 ### Making files with different extensions
 ```javascript
 const ObamaUtil = require('./ObamaUtil')
-const obama = new ObamaUtil.ObamaUtil()
+const obama = ObamaUtil.ObamaUtil
 obama.massFileCreate("./mydirectory/", ["file1.txt", "file2.pdf", "file3.jpg", "file4.mp4", "file5.js"])
 ```
 ### Making files with the same data
 ```javascript
 const ObamaUtil = require('./ObamaUtil')
-const obama = new ObamaUtil.ObamaUtil()
+const obama = ObamaUtil.ObamaUtil
 obama.massFileCreate("./mydirectory/", ["file1", "file2", "file3", "file4", "file5"], "Hello, World!")
 ```

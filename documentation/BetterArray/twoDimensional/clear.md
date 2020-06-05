@@ -4,7 +4,7 @@
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
+const ba = ObamaUtil.BetterArray
 const myArray = new ba.twoDimensional(["one", "two", "three"], [1, 2, 3])
 myArray.clear()
 // Clears the two dimensional.

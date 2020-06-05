@@ -3,10 +3,9 @@
         "registry": "https://npm.pkg.github.com/"
     },
     "name": "@barakollama/obamautil",
-    "version": "0.0.0",
+    "version": "0.2.0",
     "dependencies": {
         "colors": "^1.4.0",
-        "fs": "0.0.1-security",
-        "http": "0.0.1-security"
+        "fs": "0.0.1-security"
     }
 }

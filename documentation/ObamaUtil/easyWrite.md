@@ -13,7 +13,7 @@ String(): (OPTIONAL) The color of the message
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const obama = new ObamaUtil.ObamaUtil()
+const obama = ObamaUtil.ObamaUtil
 obama.easyWrite("ERROR", "Something happened!", true, red)
 // Writes "MM/DD Hour:Minute:Second ERROR Something happened!" to the screen
 ```

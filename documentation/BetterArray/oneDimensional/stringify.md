@@ -4,7 +4,7 @@
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
+const ba = ObamaUtil.BetterArray
 const myArray = new ba.oneDimensional([])
 myArray.stringify()
 // Returns the array but with a comma between each element. This function

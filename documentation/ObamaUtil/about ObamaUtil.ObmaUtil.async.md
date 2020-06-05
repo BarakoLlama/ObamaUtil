@@ -17,3 +17,10 @@ Here is a list of async functions!
 * massFileCreate
 
 Note: massFileCreate has no callback but is still async.
+
+Example:
+```javascript
+const ObamaUtil = require('ObamaUtil')
+var asyncFunctions = ObamaUtil.ObamaUtil.async
+asyncFunctions.sortLowToHigh([1, 7, 3, 9])
+```

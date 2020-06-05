@@ -7,7 +7,7 @@ Function(): The callback for errors
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
+const ba = ObamaUtil.BetterArray
 const myArray = new ba.loggerArray([])
 myArray.save("./myfile", (err) => {
     if(err){

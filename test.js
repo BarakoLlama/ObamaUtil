@@ -1,2 +1,1 @@
-const ObamaUtil = require('./ObamaUtil')
-const obama = new ObamaUtil.ObamaUtil()
+const ObamaUtil = require("./ObamaUtil")

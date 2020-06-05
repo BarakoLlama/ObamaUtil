@@ -5,7 +5,7 @@ any: The data to search for
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
+const ba = ObamaUtil.BetterArray
 const myArray = new ba.typeJson({})
 myArray.addItem("firefighters", 10)
 myArray.addItem("police", 15)

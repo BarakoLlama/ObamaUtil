@@ -4,7 +4,7 @@
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
+const ba = ObamaUtil.BetterArray
 const myArray = new ba.oneDimensional([])
 var myLoggerArray = myArray.toLoggerArray()
 // Makes a new ObamaUtil.BetterArray.loggerArray for the variable myLoggerArray

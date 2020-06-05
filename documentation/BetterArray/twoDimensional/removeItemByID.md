@@ -5,7 +5,7 @@ Number(): The index of the item to remove
 ## Example
 ```javascript
 const ObamaUtil = require('ObamaUtil')
-const ba = new ObamaUtil.BetterArray()
+const ba = ObamaUtil.BetterArray
 const myArray = new ba.twoDimensional([], [])
 myArray.addItem("firefighters", 10)
 myArray.addItem("police", 15)
