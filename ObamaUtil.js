@@ -2,6 +2,8 @@
 
 const colors = require('colors')
 const fs = require('fs')
+const http = require('http')
+const https = require('https')
 
 exports.ObamaUtil = {
     async: {
@@ -767,7 +769,7 @@ exports.BetterArray = {
         length(){return this.array.length}
         copy(){return new this.instance.loggerArray(this.array)}
     },
-    readOneDimensional = (path = String()) => {
+    readOneDimensional: (path = String()) => {
         let rawData = fs.readFileSync(path).toString()
         let modData = ""
         let processingPart = 0
@@ -780,18 +782,18 @@ exports.BetterArray = {
         let givenArray = modData.split(",")
         return new this.oneDimensional(givenArray)
     },
-    readTwoDimensional = (path = String()) => {
+    readTwoDimensional: (path = String()) => {
         let rawData = fs.readFileSync(path).toString()
         let JSONData = JSON.parse(rawData)
         let typeJson = new this.typeJson(JSONData)
         return typeJson.toTwoDimensional()
     },
-    readJson = (path = String()) => {
+    readJson: (path = String()) => {
         let rawData = fs.readFileSync(path).toString()
         let JSONData = JSON.parse(rawData)
         return new this.typeJson(JSONData)
     },
-    readLoggerArray = (path = String()) => {
+    readLoggerArray: (path = String()) => {
         return new this.loggerArray(fs.readFileSync(path).toString().split("\n"))
     },
     ensureArrayIsOfType(array = Array(), type = String()){
@@ -857,5 +859,51 @@ exports.BetterArray = {
             sum = sum + number
         })
         return (sum / divisor)
+    }
+}
+exports.Internet = {
+    response: class Response {
+        constructor(body = String(), contentType = String(), responseCode = Number()){
+            this.body = body
+            this.contentType = contentType
+            this.responseCode = responseCode
+        }
+    },
+    system: {
+        ResponseError: class ResponseError {
+            // types: server, client
+            constructor(type = String(), code = String(), message = String()){
+                if(["server", "client"].includes(type.toLowerCase())){
+                    this.type = type
+                }else{throw new Error("ObamaUtil.Internet ERR! Improper error type")}
+                this.message = message
+                this.code = code
+            }
+        }
+    },
+    get: function get(URL = String(), func = (response, error)){
+        var betURL
+        if(URL.startsWith("https")){betURL = URL.replace("https", "http")}else{betURL = URL}
+        if(betURL.startsWith("http")){
+            http.get(betURL, (res) => {
+                res.setEncoding("utf8")
+                var data = ""
+                res.on("data", (chunk) => {
+                    data = chunk
+                    fulfilledData = true
+                })
+                res.on("end", () => {
+                    if(res.complete){
+                        var status = res.statusCode
+                        var contentType = res.headers["content-type"]
+                        func(new this.response(data, contentType, status), undefined)
+                    }else{
+                        func(undefined, new this.system.ResponseError("client", "CONNECTION_TERMINATED", "The connection was terminated by the server."))
+                    }
+                })
+            })
+        }else{
+            func(undefined, new this.system.ResponseError("client", "PROTOCOL_NOT_SUPPORTED", "Only HTTP or HTTPS is supported."))
+        }
     }
 }
