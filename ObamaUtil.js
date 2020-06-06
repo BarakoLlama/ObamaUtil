@@ -3,6 +3,9 @@
 const colors = require('colors')
 const fs = require('fs')
 const http = require('http')
+const keypress = require('keypress')
+
+keypress(process.stdin)
 
 exports.ObamaUtil = {
     async: {
@@ -486,6 +489,17 @@ exports.ObamaUtil = {
         func()
         var done = new Date().getTime()
         return (done - current)
+    },
+    keypressLoop(loopConditionCode, loopCode, keypressCode, finishedCode){
+        loopCode()
+        process.stdin.setRawMode(true)
+        process.stdin.resume()
+        process.stdin.once("data", (data) => {
+            keypressCode(data.buffer)
+            if(loopConditionCode()){this.keypressLoop(loopConditionCode, loopCode, keypressCode)}else{
+                finishedCode()
+            }
+        })
     }
 }
 exports.BetterArray = {
@@ -952,5 +966,141 @@ exports.Internet = {
             var done = new Date().getTime()
             callback(done - current)
         })
+    }
+}
+exports.GameEngine = {
+    classes: {
+        GameMap: class GameMap {
+            constructor(dimensionsX = Number(), dimensionsY = Number()){
+                this.dimensions = [dimensionsX, dimensionsY]
+                this.instance = exports
+                this.instance.ObamaUtil.easyWrite("ObamaUtil INFO", "Creating map...", true, "brightCyan")
+                var xPart = 1
+                var mapObject = {}
+                mapObject["metadata-dimensions-x"] = dimensionsX
+                mapObject["metadata-dimensions-y"] = dimensionsY
+                while(xPart <= dimensionsX){
+                    var yPart = 1
+                    while(yPart <= dimensionsY){
+                        mapObject["x"+xPart+"y"+yPart] = " "
+                        yPart++
+                    }
+                    xPart++
+                }
+                this.instance.ObamaUtil.easyWrite("ObamaUtil INFO", "Map created!", true, "brightCyan")
+                this.map = mapObject
+            }
+            showMap(){console.log(this.map)}
+        },
+        GameRenderer: class GameRenderer {
+            constructor(mapToRender, showFPS = Boolean()){
+                this.map = mapToRender
+                this.showFPS = showFPS
+            }
+            renderFrame(){ // FPS cannot be shown because the number cannot be drawn AFTER the map is already drawn.
+                var yPart = this.map.map["metadata-dimensions-y"]
+                var xMax = this.map.map["metadata-dimensions-x"]
+                var totalRender = ""
+                // Top render
+                var topRender = "╔"
+                var mid = 1
+                while(mid <= xMax){
+                    topRender = topRender + "═"
+                    mid++
+                }
+                topRender = topRender + "╗\n"
+                // Pixels render
+                while(yPart > 0){
+                    var xRender = "║"
+                    var xPart = 1
+                    while(xPart <= xMax){
+                        xRender = xRender + this.map.map["x"+xPart+"y"+yPart]
+                        xPart++
+                    }
+                    totalRender = totalRender + xRender + "║\n"
+                    yPart--
+                }
+                // Bottom render
+                var bottomRender = "╚"
+                var mid2 = 1
+                while(mid2 <= xMax){
+                    bottomRender = bottomRender + "═"
+                    mid2++
+                }
+                bottomRender = bottomRender + "╝\n"
+                // Return
+                return topRender+totalRender+bottomRender
+            }
+        }
+    },
+    MapEditor: function MapEditor(mapObject, callback){
+        var mainMap = mapObject
+        var newMap = mainMap
+        var selectionX = 1
+        var selectionY = 1
+        var maxSelectX = mainMap.map["metadata-dimensions-x"]
+        var maxSelectY = mainMap.map["metadata-dimensions-y"]
+        var doEditor = true
+        var kpData = require("./assets/mapEditorData.json")
+        this.system.loop(() => {return doEditor}, () => { // Loop code
+            console.clear()
+            console.log("CONTROLS: Arrow Keys - move selector, ESC - Return new map, ENTER - Edit pixel")
+            var selectedMap = newMap
+            // Bug fix: Replace all @s with " "
+            var fixX = 1
+            while(fixX <= maxSelectX){
+                var fixY = 1
+                while(fixY <= maxSelectY){
+                    if(selectedMap.map["x"+fixX+"y"+fixY] == "@"){
+                        selectedMap.map["x"+fixX+"y"+fixY] = " "
+                    }
+                    fixY++
+                }
+                fixX++
+            }
+            selectedMap.map["x"+selectionX+"y"+selectionY] = "@"
+            var renderer = new this.classes.GameRenderer(selectedMap, false)
+            console.log(renderer.renderFrame())
+            if(selectionX == 1){selectionX = maxSelectX}
+            if(selectionX == maxSelectX){selectionX = 1}
+            if(selectionY == 1){selectionY = maxSelectY}
+            if(selectionY == maxSelectY){selectionY = 1}
+        }, (data) => { // Keypress code
+            var realKeypress = kpData.kpData[data.data.toString()]
+            if(realKeypress == "left"){selectionX--}
+            if(realKeypress == "right"){selectionX++}
+            if(realKeypress == "up"){selectionY++}
+            if(realKeypress == "down"){selectionY--}
+            if(realKeypress == "escape"){doEditor = false}
+        }, () => {
+            callback(newMap)
+        })
+    },
+    system: {
+        sleep: function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+              currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        },
+        loop: function keypressLoop(loopConditionCode, loopCode, keypressCode, finishedCode){
+            loopCode()
+            process.stdin.setRawMode(true)
+            process.stdin.resume()
+            process.stdin.once("data", (data) => {
+                keypressCode(data.toJSON())
+                if(loopConditionCode()){this.loop(loopConditionCode, loopCode, keypressCode)}else{
+                    finishedCode()
+                }
+            })
+        },
+        keypressOnce: function keypressOnce(keypressCode){
+            process.stdin.setRawMode(true)
+            process.stdin.resume()
+            process.stdin.once("data", (data) => {
+                keypressCode(data.toJSON())
+            })
+        }
     }
 }
