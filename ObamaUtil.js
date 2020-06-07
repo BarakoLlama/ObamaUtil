@@ -1012,7 +1012,7 @@ exports.Internet = {
         })
     }
 }
-exports.GameEngine = {
+/*exports.GameEngine = {
     classes: {
         GameMap: class GameMap {
             constructor(dimensionsX = Number(), dimensionsY = Number()){
@@ -1150,4 +1150,4 @@ exports.GameEngine = {
             })
         }
     }
-}
+}*/
