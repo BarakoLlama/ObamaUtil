@@ -500,6 +500,50 @@ exports.ObamaUtil = {
                 finishedCode()
             }
         })
+    },
+    system: {
+        resolveKeypress(bufferArray){
+            if((bufferArray[0] > 0) && (bufferArray[0] <= 26)){
+                let fix = ("ctrl+"+this.alphabet[bufferArray[0] - 1])
+                if(fix == "ctrl+h"){return "backspace"}
+                if(fix == "ctrl+m"){return "enter"}
+                return fix
+            }else if((bufferArray[0] >= 65) && (bufferArray[0] <= 90)){
+                return ("shift+"+this.alphabet[bufferArray[0] - 65])
+            }else if((bufferArray[0] >= 97) && (bufferArray[0] <= 122)){
+                return(this.alphabet[bufferArray[0] - 97])
+            }else if((bufferArray[0] >= 48) && (bufferArray[0] <= 57)){
+                return(this.numbers[bufferArray[0] - 48])
+            }else if(bufferArray[0] == 27){
+                if(bufferArray[1] == undefined){return "escape"}
+            }else{
+                console.log(bufferArray.toString())
+                return(this.specialCharResolve[bufferArray.toString()])
+            }
+        },
+        alphabet: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+        "v", "w", "x", "y", "z"],
+        numbers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        specialCharResolve: { // fix function keys + home keys
+            "32":"space","27,91,91,65":"f1", "27,91,91,66":"f2",
+            "27,91,91,67":"f3","27,91,91,68":"f4",
+            "27,91,91,69":"f5","27,91,49,55,126":"f6","27,91,49,56,126":"f7",
+            "27,91,49,57,126":"f8","27,91,50,48,126":"f9","27,91,50,49,126":"f10",
+            "27,91,50,51,126":"f11","27,91,50,52,126":"f12","33":"!","64":"@",
+            "35":"#","36":"$","37":"%","94":"^","38":"&","42":"*","40":"(",
+            "41":")","45":"-","95":"_","61":"=","43":"+","91":"[","123":"{",
+            "93":"]","125":"}","92":"backslash","124":"|","59":";","58":":",
+            "39":"'","34":'"',"44":",","60":"<","46":".","62":">","47":"/",
+            "63":"?","27,91,65":"up","27,91,67":"right","27,91,66":"down",
+            "27,91,68":"left","27,91,50,126":"insert","27,91,49,126":"home",
+            "27,91,53,126":"pgup","27,91,54,126":"pgdown",
+            "27,91,51,126":"delete","27,91,52,126":"end","27,91,52,126":"numpad1",
+            "27,91,66":"numpad2","27,91,54,126":"numpad3","27,91,68":"numpad4",
+            "27,91,71":"numpad5","27,91,67":"numpad6","27,91,49,126":"numpad7",
+            "27,91,65":"numpad8","27,91,53,126":"numpad9",
+            "27,91,50,126":"numpad0","27,91,51,126":"numpadperiod","96":"`",
+            "126":"~"
+        }
     }
 }
 exports.BetterArray = {
@@ -1072,6 +1116,9 @@ exports.GameEngine = {
             if(realKeypress == "up"){selectionY++}
             if(realKeypress == "down"){selectionY--}
             if(realKeypress == "escape"){doEditor = false}
+            if(realKeypress == "enter"){
+
+            }
         }, () => {
             callback(newMap)
         })

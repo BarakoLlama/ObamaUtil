@@ -22,6 +22,8 @@ ObamaUtil.GameEngine.system.loop(() => {
 
 }, (code) => {
     console.log(code)
+    console.log("resolved to "+ObamaUtil.ObamaUtil.system.resolveKeypress(code.data))
+    console.log(code.data.toString())
 }, () => {
     end
 })
