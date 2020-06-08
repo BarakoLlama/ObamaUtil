@@ -501,6 +501,19 @@ exports.ObamaUtil = {
             }
         })
     },
+    arraysIncludeCommonElement(array1 = Array(), array2 = Array()){
+        var processingPart = 0
+        while(processingPart < array1.length){
+            var partOne = array1[processingPart]
+            var prc2 = 0
+            while(prc2 < array2.length){
+                if(array2[prc2] == partOne){return true}
+                prc2++
+            }
+            processingPart++
+        }
+        return false
+    },
     system: {
         resolveKeypress(bufferArray){
             if((bufferArray[0] > 0) && (bufferArray[0] <= 26)){
