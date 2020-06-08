@@ -1190,6 +1190,9 @@ exports.Math = {
         toNumber(){
             return (this.multiplier * Math.pow(10, this.power))/10
         }
+        toStrinng(){
+            return String(this.multiplier+"e"+this.power)
+        }
     },
     GiantIntAdd: function Add(partOne, partTwo){
         var returner = new this.GiantInt()
