@@ -1151,3 +1151,111 @@ exports.Internet = {
         }
     }
 }*/
+exports.Math = {
+    GiantInt: class GiantInt {
+        constructor(initialNumber = Number()){
+            this.multiplier = 0
+            this.power = 0
+            this.instance = exports.Math
+            if(initialNumber !== undefined){
+                this.multiplier = this.instance.system.ClassifyMultiple(initialNumber)
+                this.power = this.instance.system.ClassifyPower(initialNumber)
+                // Fix <1
+                if(this.power == undefined){
+                    var negPower = 0
+                    while((Math.pow(10, (-1*negPower)) > initialNumber)){
+
+                        negPower++
+                    }
+                    this.power = -1*negPower
+                    this.multiplier = this.instance.system.ConvertFromPower(initialNumber, 1, this.power)
+                }
+            }
+            this.MAX_INTEGER = "1e94864"
+            this.MIN_WHOLE_NUMBER = "1e-94864"
+        }
+        toNumber(){
+            return (this.multiplier * Math.pow(10, this.power))/10
+        }
+    },
+    GiantIntAdd: function Add(partOne, partTwo){
+        var returner = new this.GiantInt()
+        // Convert first power to second
+        var newMultiplier = this.system.ConvertFromPower(partOne.multiplier, partOne.power, partTwo.power)
+        // Fix multipliers into one
+        newMultiplier = newMultiplier + partTwo.multiplier
+        // Convert back to first power
+        newMultiplier = this.system.ConvertFromPower(newMultiplier, partTwo.power, partOne.power)
+        // Return
+        returner.multiplier = newMultiplier
+        returner.power = partOne.power
+        return returner
+    },
+    GiantIntSubtract: function Subtract(partOne, partTwo){
+        var returner = new this.GiantInt()
+        // Convert first power to second
+        var newMultiplier = this.system.ConvertFromPower(partOne.multiplier, partOne.power, partTwo.power)
+        // Fix multipliers into one
+        newMultiplier = newMultiplier - partTwo.multiplier
+        // Convert back to first power
+        newMultiplier = this.system.ConvertFromPower(newMultiplier, partTwo.power, partOne.power)
+        // Return
+        returner.multiplier = newMultiplier
+        returner.power = partOne.power
+        return returner
+    },
+    GiantIntMultiply: function Multiply(partOne, partTwo){
+        var returner = new this.GiantInt()
+        // Convert first power to second
+        var newMultiplier = this.system.ConvertFromPower(partOne.multiplier, partOne.power, partTwo.power)
+        // Fix multipliers into one
+        newMultiplier = newMultiplier * partTwo.multiplier
+        // Convert back to first power
+        newMultiplier = this.system.ConvertFromPower(newMultiplier, partTwo.power, partOne.power)
+        // Return
+        returner.multiplier = newMultiplier
+        returner.power = partOne.power
+        return returner
+    },
+    GiantIntDivide: function Divide(partOne, partTwo){
+        var newMul = partOne.multiplier / partTwo.multiplier
+        var newPow = partOne.power / partTwo.power
+        newMul = this.system.ConvertFromPower(newMul, newPow, partOne.power)
+        var returner = new this.GiantInt()
+        returner.multiplier = newMul
+        returner.power = partOne.power
+        return returner
+    },
+    system: {
+        ClassifyPower(num = Number()){
+            var numX
+            if(num < 0){numX = num * -1}else{numX = num}
+            var power = 309 // Pulled from Number.MAX_VALUE
+            while(power >= 0){
+                if((Math.pow(10, power) < numX)){
+                    return power+1
+                }
+                power--
+            }
+            return undefined
+        },
+        ClassifyMultiple(num = Number()){
+            var power = this.ClassifyPower(num)
+            if(num < 0){
+                return -1*(num / (Math.pow(10, power-1)))
+            }else{
+                return (num / (Math.pow(10, power-1)))
+            }
+        },
+        ConvertFromPower(num = Number(), power = Number(), toPower = Number()){
+            // returns new number
+            if(toPower > power){
+                return num / Math.pow(10, (toPower - power))
+            }else if(toPower < power){
+                return num * Math.pow(10, (power - toPower))
+            }else{
+                return num // No power change, therefore no number change
+            }
+        }
+    }
+}
