@@ -1103,6 +1103,130 @@ exports.Math = {
         returner.power = partOne.power
         return returner
     },
+    GreatestCommonFactor: function gcf(numbers = Array()){
+        function isCommonFactor(array = Array(), divisor = Number()){
+            var isCommonFactor = true
+            var processingPart = 0
+            while(processingPart < array.length){
+                if(array[processingPart]%divisor !== 0){isCommonFactor = false}
+                processingPart++
+            }
+            return isCommonFactor
+        }
+        // Find lowest number
+        var lowest = Number.MAX_VALUE
+        var processingPart = 0
+        while(processingPart < numbers.length){
+            if(numbers[processingPart] < lowest){lowest = numbers[processingPart]}
+            processingPart++
+        }
+        var scanner = lowest
+        while(scanner > 1){
+            if(isCommonFactor(numbers, scanner)){return scanner}
+            scanner--
+        }
+        return undefined
+    },
+    AddArrays: function addArrays(n1 = Array(), n2 = Array()){
+        var rn1
+        var rn2
+        if(n1.length = n2.length){
+            rn1 = n1
+            rn2 = n2
+        }else if(n1.length > n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length > rn2.length){
+                rn2.push(0)
+            }
+        }else if(n1.length < n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length < rn2.length){
+                rn1.push(0)
+            }
+        }
+        var returnArray = []
+        rn1.forEach(function(item, index){
+            returnArray.push(item + rn2[index])
+        })
+        return returnArray
+    },
+    SubtractArrays: function subtractArrays(n1 = Array(), n2 = Array()){
+        var rn1
+        var rn2
+        if(n1.length = n2.length){
+            rn1 = n1
+            rn2 = n2
+        }else if(n1.length > n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length > rn2.length){
+                rn2.push(0)
+            }
+        }else if(n1.length < n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length < rn2.length){
+                rn1.push(0)
+            }
+        }
+        var returnArray = []
+        rn1.forEach(function(item, index){
+            returnArray.push(item - rn2[index])
+        })
+        return returnArray
+    },
+    MultiplyArrays: function multiplyArrays(n1 = Array(), n2 = Array()){
+        var rn1
+        var rn2
+        if(n1.length = n2.length){
+            rn1 = n1
+            rn2 = n2
+        }else if(n1.length > n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length > rn2.length){
+                rn2.push(0)
+            }
+        }else if(n1.length < n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length < rn2.length){
+                rn1.push(0)
+            }
+        }
+        var returnArray = []
+        rn1.forEach(function(item, index){
+            returnArray.push(item * rn2[index])
+        })
+        return returnArray
+    },
+    DivideArrays: function divideArrays(n1 = Array(), n2 = Array()){
+        var rn1
+        var rn2
+        if(n1.length = n2.length){
+            rn1 = n1
+            rn2 = n2
+        }else if(n1.length > n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length > rn2.length){
+                rn2.push(0)
+            }
+        }else if(n1.length < n2.length){
+            rn1 = n1
+            rn2 = n2
+            while(rn1.length < rn2.length){
+                rn1.push(0)
+            }
+        }
+        var returnArray = []
+        rn1.forEach(function(item, index){
+            returnArray.push(item / rn2[index])
+        })
+        return returnArray
+    },
     system: {
         ClassifyPower(num = Number()){
             var numX
