@@ -514,6 +514,12 @@ exports.ObamaUtil = {
         }
         return false
     },
+    getArgs(){
+        var args = process.argv
+        args.shift()
+        args.shift()
+        return args
+    },
     system: {
         resolveKeypress(bufferArray){
             if((bufferArray[0] > 0) && (bufferArray[0] <= 26)){
@@ -1226,6 +1232,37 @@ exports.Math = {
             returnArray.push(item / rn2[index])
         })
         return returnArray
+    },
+    MultiShift: function multiShift(array = Array(), amount = Number(), getType = String()){
+        if(amount < 1){throw new Error("Shift amount cannot be less than one.")}
+        if(getType == "remainder"){
+            var fixedArray = array
+            var amountProcess = 1
+            while(amountProcess <= amount){
+                fixedArray.shift()
+                amountProcess++
+            }
+            return fixedArray
+        }else if(getType == "shifted"){
+            var fixedArray = array
+            var amountProcess = 1
+            var shifted = []
+            while(amountProcess <= amount){
+                shifted.push(fixedArray.shift())
+                amountProcess++
+            }
+            return shifted
+        }else{
+            throw new Error("getType can only be 'remainder' or 'shifted'. See documentation for more information.")
+        }
+    },
+    NumberIsInRange: function(number = Number(), pointer = Number(), range = Number()){
+        if(range > 1){
+            throw new Error("Range cannot be less than 1.") // Can cause unexpected results.
+        }
+        var lower = pointer - range
+        var upper = pointer + range
+        if((number >= lower) && (number <= upper)){return true}else{return false}
     },
     system: {
         ClassifyPower(num = Number()){
